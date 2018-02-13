@@ -67,10 +67,10 @@ module.exports = (robot) ->
     robot.logger.info "Logging in to zabbix: #{url}"
     request_('user.login', credential, (res) ->
       if res.error
-        robot.logger.error "Zabbix auth failed: #{util.inspect(res)}"
+        robot.logger.error "Hold your horses!! I couldn't log in Zabbix: #{util.inspect(res)}"
         callback(res.error) if callback
       else
-        robot.logger.info  "Zabbix auth succeeded"
+        robot.logger.info  "Oh yeah!!! You managed to log in to zabbix! -> #{url}"
         token = res.result
         callback(null) if callback
     )
@@ -142,25 +142,7 @@ module.exports = (robot) ->
       sec = 3600
 
     sec
-
-  ##### Look up utilities
-  #hostsByName = {}
-  #hostsById = {}
-
-  #flushCache = ->
-  #  hostsByName = {}
-  #  hostsById = {}
-
-  #getHostByName = (hostname, callback) ->
-  #  return callback(hostsByName[hostname]) if hostsByName[hostname]
-
-  #  params = {filter: [{host: hostname}]}
-  #  return request_('host.get', params, (res) ->
-  #    hostByName[hostname] = res.result[0]
-  #    return callback(res.result[0])
-  #  )
-  #
-
+    
   getHostgroups = (msg, filter, callback) ->
     params = {
       output: 'extend',
@@ -185,7 +167,7 @@ module.exports = (robot) ->
 
   graphImg = (graphid, period, callback) ->
     period = 3600 unless period
-    getZabbixImageURL "#{url}/chart2.php?graphid=#{graphid}&period=#{period}&width=497#.png", callback
+    getZabbixImageURL "#{url}/chart2.php?graphid=#{graphid}&period=#{period}#.png", callback
 
   ##### Bootstrap
 
@@ -196,9 +178,9 @@ module.exports = (robot) ->
   robot.respond /(?:auth(?:enticate)?|log\s*in)\s+(?:to\s+)?zabbix/i, (msg) ->
     getToken (error) ->
       if error
-        msg.send("I couldn't log in Zabbix: #{util.inspect(error)}")
+        msg.send("Hold your horses!! I couldn't log in Zabbix: #{util.inspect(error)}")
       else
-        msg.send("Logged in to zabbix!")
+        msg.send("Oh yeah!!! You managed to log in to zabbix!")
 
   # zabbix (list) events (on host|for group) (sort(ed) by <key> (asc|desc))
   robot.respond /(?:(?:zabbix|zbx)\s+(?:list\s+)?(?:event|alert)s?(?:\s+(on|of|for)\s+([^\s]+))?(?:\s+sort(?:ed)?\s+by\s+(.+?)(?:\s+(asc|desc)))?)/i, (msg) ->
@@ -261,6 +243,19 @@ module.exports = (robot) ->
     request msg, 'graph.get', params, (res) ->
       response = (for graph in res.result
         "- #{graph.name}"
+      ).join("\n")
+
+      msg.send response
+
+  # Show all hosts on <server>
+  robot.respond /(?:(?:zabbix|zbx)\s+(?:show\s+)?hosts?\s+(?:(?:on|of|for)\s+)?(.+))/i, (msg) ->
+    params = {
+      filter: {host: msg.match[3]}
+    }
+
+    request msg, 'host.get', params, (res) ->
+      response = (for host in res.result
+        "- #{host.name}"
       ).join("\n")
 
       msg.send response

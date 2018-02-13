@@ -2,11 +2,9 @@
   "name": "hal-9000",
   "version": "0.0.0",
   "private": true,
-  "author": "Gerhard Pegel",
-  "description": "A simple hubot to simplify life",
+  "author": "Gerhard",
+  "description": "A simple helpful robot for your Company",
   "dependencies": {
-    "all": "0.0.0",
-    "coffee-script": "^1.12.7",
     "hubot": "^2.19.0",
     "hubot-diagnostics": "0.0.2",
     "hubot-google-images": "^0.2.7",
@@ -20,9 +18,7 @@
     "hubot-scripts": "^2.17.2",
     "hubot-shell": "^1.0.2",
     "hubot-shipit": "^0.2.1",
-    "hubot-whats-new": "^1.1.0",
-    "hubot-zabbix": "^0.4.0",
-    "missing": "0.0.1"
+    "hubot-zabbix": "^0.4.0"
   },
   "engines": {
     "node": "0.10.x"

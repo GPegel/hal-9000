@@ -5,4 +5,8 @@ set -e
 npm install
 export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
 
+export HUBOT_ZABBIX_MIN_SEVERITY=0
+export HUBOT_ZABBIX_USER=hal-9000
+export HUBOT_ZABBIX_PASSWORD=hal-9000
+export HUBOT_ZABBIX_ENDPOINT=http://zabbix.gpegel.nl
 exec node_modules/.bin/hubot --name "hal-9000" "$@"
