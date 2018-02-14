@@ -249,19 +249,21 @@ module.exports = (robot) ->
 
   # WORK IN PROGRESS
   # zabbix acknowledge something on <hostname>
-  # robot.respond /solve number (.*)/i, (msg) ->
-  #   params = {
-  #     eventids: msg.match[1],
-  #     message: 'problem solved',
-  #     action: 1
-  #   }
-  #
-  #   request msg, 'event.acknowledge', params, (res) ->
-  #   event = msg.match[1]
-  #   if event is "1"
-  #     msg.reply "I'm afraid I can't let you do that. Please enter the correct event ID. Or try typing: zabbix list alert."
-  #   else
-  #     msg.reply "Finally start acknowledging something : event number #{event} acknowledged. Now go back to work!"
+  robot.respond /solve number (.*)/i, (msg) ->
+    params = {
+      eventids: msg.match[1],
+      message: 'problem solved',
+      action: 0
+    }
+
+    request msg, 'event.acknowledge', params, (res) ->
+    # event = msg.match[1]
+    # if event is msg.match[1]
+    #   msg.reply "I'm afraid I can't let you do that. Please enter the correct event ID. Or try typing: zabbix list alert."
+    # else
+    #   msg.reply "Finally start acknowledging something : event number #{event} acknowledged. Now go back to work!"
+
+    msg.send msg
 
   # Show all hosts on <server>
   robot.respond /(?:(?:zabbix|zbx)\s+(?:show\s+)?hosts?\s+(?:(?:on|of|for)\s+)?(.+))/i, (msg) ->
