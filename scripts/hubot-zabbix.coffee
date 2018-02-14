@@ -142,7 +142,7 @@ module.exports = (robot) ->
       sec = 3600
 
     sec
-    
+
   getHostgroups = (msg, filter, callback) ->
     params = {
       output: 'extend',
@@ -227,7 +227,7 @@ module.exports = (robot) ->
             maintenance = '☃'
           else
             maintenance = ''
-          "* #{maintenance}#{host.name} (#{stringSeverity(trigger.priority)}): #{trigger.description} (#{time})"
+          "* #{maintenance}#{host.name} (#{stringSeverity(trigger.priority)}): #{trigger.description} (#{time}): triggerid is #{trigger.triggerid} and eventid is #{event.eventid}"
         ).join("\n")
       msg.send lines.join("\n").replace(/\n+/g,"\n")
 
@@ -246,6 +246,22 @@ module.exports = (robot) ->
       ).join("\n")
 
       msg.send response
+
+  # WORK IN PROGRESS
+  # zabbix acknowledge something on <hostname>
+  # robot.respond /solve number (.*)/i, (msg) ->
+  #   params = {
+  #     eventids: msg.match[1],
+  #     message: 'problem solved',
+  #     action: 1
+  #   }
+  #
+  #   request msg, 'event.acknowledge', params, (res) ->
+  #   event = msg.match[1]
+  #   if event is "1"
+  #     msg.reply "I'm afraid I can't let you do that. Please enter the correct event ID. Or try typing: zabbix list alert."
+  #   else
+  #     msg.reply "Finally start acknowledging something : event number #{event} acknowledged. Now go back to work!"
 
   # Show all hosts on <server>
   robot.respond /(?:(?:zabbix|zbx)\s+(?:show\s+)?hosts?\s+(?:(?:on|of|for)\s+)?(.+))/i, (msg) ->
