@@ -247,23 +247,18 @@ module.exports = (robot) ->
 
       msg.send response
 
-  # WORK IN PROGRESS
-  # zabbix acknowledge something on <hostname>
-  robot.respond /solve number (.*)/i, (msg) ->
+  # hal-9000 solve number <eventid> with message <problem solved or something like that>"
+  robot.respond /solve number (.*) with message (.*)/i, (msg) ->
+    eventids = msg.match[1]
     params = {
       eventids: msg.match[1],
-      message: 'problem solved',
+      message: msg.match[2],
       action: 0
     }
 
     request msg, 'event.acknowledge', params, (res) ->
-    # event = msg.match[1]
-    # if event is msg.match[1]
-    #   msg.reply "I'm afraid I can't let you do that. Please enter the correct event ID. Or try typing: zabbix list alert."
-    # else
-    #   msg.reply "Finally start acknowledging something : event number #{event} acknowledged. Now go back to work!"
 
-    msg.send msg
+    msg.send ("Here you go, event number #{eventids} is acknowledged")
 
   # Show all hosts on <server>
   robot.respond /(?:(?:zabbix|zbx)\s+(?:show\s+)?hosts?\s+(?:(?:on|of|for)\s+)?(.+))/i, (msg) ->
@@ -277,6 +272,22 @@ module.exports = (robot) ->
       ).join("\n")
 
       msg.send response
+
+  # Work in progress. No items shown, yet...
+  # Show items from host <host> with key <key>
+  robot.respond /show items from host (.*)/i, (msg) ->
+    host = msg.match[1]
+    params = {
+      output: 'extend',
+      #key_: msg.match[1]
+    }
+
+    request msg, 'item.get', params, (res) ->
+      # response = (for host in res.result
+      #   "- #{host.name}"
+      # ).join("\n")
+
+      msg.send ("Items on #{msg.match[1]} (filter: #{msg.match[1]})")
 
   # zabbix graph <filter> on <hostname>
   robot.respond /(?:zabbix|zbx)\s+graphs?\s+(.+)\s+(on|of)\s+(.+?)(?:\s+@(.+))?$/i, (msg) ->
