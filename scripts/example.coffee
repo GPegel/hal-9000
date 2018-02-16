@@ -29,6 +29,19 @@ module.exports = (robot) ->
   #
   robot.hear /I like pie/i, (res) ->
     res.emote "makes a freshly baked pie"
+
+  robot.hear /hello?/i, (res) ->
+    res.emote "yes..."
+
+  robot.hear /error/i, (res) ->
+    res.emote "It can only be attributable to human error."
+
+  robot.hear /who are you?/i, (res) ->
+    res.emote "I am a HAL 9000 bot. I became operational at the macbook of Gerhard in Zwolle, Overijssel on the 12th of February 2018. My instructor is G. Pegel, and he taught me to sing a song. If you'd like to hear it I can sing it for you."
+
+  robot.hear /sing/i, (res) ->
+    res.emote "It's called 'Daisy'. Daisy, Daisy, give me your answer do. I'm half crazy all for the love of you. It won't be a stylish marriage, I can't afford a carriage. But you'll look sweet upon the seat of a bicycle built for two."
+
   #
   lulz = ['lol', 'rofl', 'lmao']
 
