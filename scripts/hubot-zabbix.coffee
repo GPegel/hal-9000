@@ -247,6 +247,21 @@ module.exports = (robot) ->
 
       msg.send response
 
+  # zabbix list users on <hostname>
+  robot.respond /(?:(?:zabbix|zbx)\s+(?:list\s+)?users?\s+(?:(?:on|of|for)\s+)?(.+))/i, (msg) ->
+    params = {
+      output: 'extend',
+      expandName: true,
+      filter: {host: msg.match[1]}
+    }
+
+    request msg, 'user.get', params, (res) ->
+      response = (for user in res.result
+        "alias: #{user.alias}, name: #{user.name}, surname: #{user.surname} "
+      ).join("\n")
+
+      msg.send response
+
   # hal-9000 solve number <eventid> with message <problem solved or something like that>"
   robot.respond /acknowledge eventid (.*) with message (.*)/i, (msg) ->
     eventids = msg.match[1]
@@ -330,10 +345,3 @@ module.exports = (robot) ->
         respond(null)
       when "of"
         getHostgroups(msg, host, (res) => respond(res.result))
-
-    robot.respond /open the (.*) doors/i, (res) ->
-      doorType = res.match[1]
-      if doorType is "pod bay"
-        res.reply "I'm afraid I can't let you do that."
-      else
-        res.reply "Opening #{doorType} doors"
