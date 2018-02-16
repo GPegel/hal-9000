@@ -34,6 +34,26 @@ Then you can interact with hal-9000 by typing `hal-9000 help`.
     hal-9000 help - Displays all of the help commands that hal-9000 knows about.
     ...
 
+### Slack Integration
+
+Open your Slack Team page and go to the “Configure Integrations” area. Find the Hubot integration and click “Add”. Slack will ask you to designate a username for your bot. I choose HAL-9000 for the bot I created.
+
+Once the username is provided, Slack will create an account on your team with that username and assign it an API token. It is very important that you keep this API token a secret, so do not check it into your git repository. You’ll also have the option to customize your bot’s icon, first and last name, what it does, and so forth.
+
+With the API token in hand, we can now start our bot locally using the following command:
+```
+HUBOT_SLACK_TOKEN=YOUR_SLACK_API_TOKEN_HERE ./bin/hubot --adapter slack
+```
+
+Or add ```HUBOT_SLACK_TOKEN=YOUR_SLACK_API_TOKEN_HERE``` in your ENV.
+
+This will log your bot into Slack so that you are able to talk to it there. Try it out by running the above command, visiting the #general channel (Hubot uses this by default) and issuing a command such as:
+```
+<bot_name> pug me
+```
+
+Note: Once you’re done experimenting locally, it is a good idea to move your bot somewhere more permanent (such as Heroku). There are plenty of good guides on how to do this.
+
 ### Configuration
 
 A few scripts (including some installed by default) require environment

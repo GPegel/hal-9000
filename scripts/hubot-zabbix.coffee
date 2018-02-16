@@ -275,19 +275,17 @@ module.exports = (robot) ->
 
   # Work in progress. No items shown, yet...
   # Show items from host <host> with key <key>
-  robot.respond /show items from host (.*)/i, (msg) ->
+  robot.respond /show items from host (.*) with key (.*)/i, (msg) ->
     host = msg.match[1]
     params = {
       output: 'extend',
-      #key_: msg.match[1]
+      hostids: msg.match[1],
+      search: {key_: msg.match[2]}
     }
 
     request msg, 'item.get', params, (res) ->
-      # response = (for host in res.result
-      #   "- #{host.name}"
-      # ).join("\n")
 
-      msg.send ("Items on #{msg.match[1]} (filter: #{msg.match[1]})")
+      msg.send ("These are the items for #{msg.match[1]} based on key name #{msg.match[2]} ")
 
   # zabbix graph <filter> on <hostname>
   robot.respond /(?:zabbix|zbx)\s+graphs?\s+(.+)\s+(on|of)\s+(.+?)(?:\s+@(.+))?$/i, (msg) ->
