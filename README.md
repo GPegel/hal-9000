@@ -45,8 +45,6 @@ With the API token in hand, we can now start our bot locally using the following
 HUBOT_SLACK_TOKEN=YOUR_SLACK_API_TOKEN_HERE ./bin/hubot --adapter slack
 ```
 
-Or add ```HUBOT_SLACK_TOKEN=YOUR_SLACK_API_TOKEN_HERE``` in your ENV.
-
 This will log your bot into Slack so that you are able to talk to it there. Try it out by running the above command, visiting the #general channel (Hubot uses this by default) and issuing a command such as:
 ```
 <bot_name> pug me

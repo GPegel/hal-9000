@@ -248,7 +248,7 @@ module.exports = (robot) ->
       msg.send response
 
   # hal-9000 solve number <eventid> with message <problem solved or something like that>"
-  robot.respond /solve number (.*) with message (.*)/i, (msg) ->
+  robot.respond /acknowledge eventid (.*) with message (.*)/i, (msg) ->
     eventids = msg.match[1]
     params = {
       eventids: msg.match[1],
@@ -280,7 +280,8 @@ module.exports = (robot) ->
     params = {
       output: 'extend',
       hostids: msg.match[1],
-      search: {key_: msg.match[2]}
+      search: {key_: msg.match[2]},
+      sortfield: 'name'
     }
 
     request msg, 'item.get', params, (res) ->
@@ -329,3 +330,10 @@ module.exports = (robot) ->
         respond(null)
       when "of"
         getHostgroups(msg, host, (res) => respond(res.result))
+
+    robot.respond /open the (.*) doors/i, (res) ->
+      doorType = res.match[1]
+      if doorType is "pod bay"
+        res.reply "I'm afraid I can't let you do that."
+      else
+        res.reply "Opening #{doorType} doors"
