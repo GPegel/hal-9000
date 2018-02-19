@@ -257,7 +257,7 @@ module.exports = (robot) ->
 
     request msg, 'user.get', params, (res) ->
       response = (for user in res.result
-        "alias: #{user.alias}, name: #{user.name}, surname: #{user.surname} "
+        "alias: #{user.alias}\nname: #{user.name}\nsurname: #{user.surname}\n"
       ).join("\n")
 
       msg.send response
