@@ -262,6 +262,50 @@ module.exports = (robot) ->
 
       msg.send response
 
+  # zabbix list actions
+  robot.respond /zabbix list actions/i, (msg) ->
+    params = {
+      output: 'extend',
+      selectOperations: 'extend',
+      selectRecoveryOperations: 'extend',
+      selectFilter: 'extend'
+    }
+
+    request msg, 'action.get', params, (res) ->
+      response = (for action in res.result
+        "Action name: #{action.name}"
+      ).join("\n")
+
+      msg.send response
+
+  # zabbix list scripts
+  robot.respond /zabbix list scripts/i, (msg) ->
+    params = {
+      output: 'extend'
+    }
+
+    request msg, 'script.get', params, (res) ->
+      response = (for script in res.result
+        "ScriptID: #{script.scriptid}\nScript name: #{script.name}\nCommand: #{script.command}\n"
+      ).join("\n")
+
+      msg.send response
+
+  # This does not work yet
+  # zabbix execute scriptid <id> on host <hostid>
+  # robot.respond /zabbix execute scriptid (.*) on hostid (.*)/i, (msg) ->
+  #   params = {
+  #     scriptid: msg.match[1],
+  #     hostid: msg.match[2]
+  #   }
+  #
+  #   request msg, 'script.execute', params, (res) ->
+  #     response = (for result in res.result
+  #       "executed on #{hostid} with response #{result.response} and value #{result.value}"
+  #     ).join("\n")
+  #
+  #     msg.send response
+
   # hal-9000 solve number <eventid> with message <problem solved or something like that>"
   robot.respond /acknowledge eventid (.*) with message (.*)/i, (msg) ->
     eventids = msg.match[1]
