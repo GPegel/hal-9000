@@ -154,11 +154,11 @@ module.exports = (robot) ->
 
   SEVERITY_STRINGS = {
     0: 'Not classified',
-    1: 'info',
-    2: 'warn',
-    3: 'avg',
-    4: 'HIGH',
-    5: 'DISASTER'
+    1: 'Information',
+    2: 'Warning',
+    3: 'Average',
+    4: 'High',
+    5: 'Disaster'
   }
 
   stringSeverity = (val) ->
@@ -227,7 +227,7 @@ module.exports = (robot) ->
             maintenance = '☃'
           else
             maintenance = ''
-          "* #{maintenance}#{host.name} (#{stringSeverity(trigger.priority)}): #{trigger.description} (#{time}): triggerid is #{trigger.triggerid} and eventid is #{event.eventid}"
+          "#{maintenance}\nHostname: #{host.name}\nSeverity: #{stringSeverity(trigger.priority)}\nDescription: #{trigger.description} (#{time}).\nTriggerid: #{trigger.triggerid}\nEventid: #{event.eventid}"
         ).join("\n")
       msg.send lines.join("\n").replace(/\n+/g,"\n")
 

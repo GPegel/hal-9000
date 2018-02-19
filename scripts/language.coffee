@@ -32,7 +32,7 @@ response = [
 ]
 
 module.exports = (robot) ->
-  robot.respond /(.*)shit(.*)|(.*)crap(.*)|(.*)ass(.*)|(.*)loser(.*)/i, (msg) ->
+  robot.hear /(.*)shit(.*)|(.*)crap(.*)|(.*)ass(.*)|(.*)loser(.*)/i, (msg) ->
     msg.send msg.random response
   language = new RegExp "fuck you #{robot.name}", "i"
   robot.hear language, (msg) ->
