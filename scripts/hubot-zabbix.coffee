@@ -291,20 +291,6 @@ module.exports = (robot) ->
 
       msg.send response
 
-  # This does not work yet
-  # zabbix execute scriptid <id> on host <hostid>
-  # robot.respond /zabbix execute scriptid (.*) on hostid (.*)/i, (msg) ->
-  #   params = {
-  #     scriptid: msg.match[1],
-  #     hostid: msg.match[2]
-  #   }
-  #
-  #   request msg, 'script.execute', params, (res) ->
-  #     response = (for result in res.result
-  #       "executed on #{hostid} with response #{result.response} and value #{result.value}"
-  #     ).join("\n")
-  #
-  #     msg.send response
 
   # hal-9000 solve number <eventid> with message <problem solved or something like that>"
   robot.respond /acknowledge eventid (.*) with message (.*)/i, (msg) ->
