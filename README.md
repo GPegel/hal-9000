@@ -12,6 +12,35 @@ available, etc!
 [hubot]: http://hubot.github.com
 [generator-hubot]: https://github.com/github/generator-hubot
 
+### Running hal-9000 Docker container inc. Slack adapter and Redis brain
+
+You can test your hubot by running the following:
+
+Hubot is using Redis as a 'brain' so you have to start a Redis image first:
+
+    % docker run -d --name hal-9000-redis redis:alpine
+
+When Redis is up and running you can build hal-9000 container locally by running:
+
+    % docker build -t hal-9000 .
+
+You'll see some start up output and a prompt:
+
+    % Successfully tagged hal-9000:latest
+
+Next, create the image using this command (you should already have a Slack token and a Zabbix Server endpoint incl username and password):
+
+    % docker run -dit /
+    -e HUBOT_SLACK_TOKEN="<slack token>" /
+    -e HUBOT_ZABBIX_PASSWORD="<zabbix-password>" /
+    -e HUBOT_ZABBIX_MIN_SEVERITY="1" /
+    -e HUBOT_ZABBIX_USER="<zabbix-username>" /
+    -e HUBOT_ZABBIX_ENDPOINT="<zabbix-endpoint>" /
+    --name hal-90001 --link hal-9000-redis:redis  hal-9000
+
+Now HAL-9000 will be available in your Slack environment and using a Redis brain.
+
+
 ### Running hal-9000 Locally
 
 You can test your hubot by running the following, however some plugins will not
