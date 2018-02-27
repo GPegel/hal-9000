@@ -6,8 +6,6 @@ ENV HUBOT_OWNER Gerhard Pegel
 ENV HUBOT_DESCRIPTION Resistance is futile
 ENV EXTERNAL_SCRIPTS "hubot-help,hubot-pugme,hubot-zabbix"
 ENV HUBOT_ZABBIX_MIN_SEVERITY 1
-ENV HUBOT_ZABBIX_USER hal-9000
-ENV HUBOT_ZABBIX_ENDPOINT http://zabbix.gpegel.nl
 
 RUN useradd hubot -m
 
