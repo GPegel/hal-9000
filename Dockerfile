@@ -5,7 +5,6 @@ ENV HUBOT_NAME hal-9000
 ENV HUBOT_OWNER Gerhard Pegel
 ENV HUBOT_DESCRIPTION Resistance is futile
 ENV EXTERNAL_SCRIPTS "hubot-help,hubot-pugme,hubot-zabbix"
-ENV HUBOT_ZABBIX_MIN_SEVERITY 1
 
 RUN useradd hubot -m
 
