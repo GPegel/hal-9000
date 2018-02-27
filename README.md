@@ -28,7 +28,7 @@ You'll see some start up output and a prompt:
 
     % Successfully tagged hal-9000:latest
 
-Next, create the image using this command (you should already have a Slack token and a Zabbix Server endpoint incl username and password):
+Next, create the image using this command (you should already have a Slack token and a Zabbix Server endpoint incl. user name and password):
 
     % docker run -dit /
     -e HUBOT_SLACK_TOKEN="<slack token>" /
