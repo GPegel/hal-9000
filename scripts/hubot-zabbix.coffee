@@ -227,7 +227,7 @@ module.exports = (robot) ->
             maintenance = '☃'
           else
             maintenance = ''
-          "#{maintenance}\nHostname: #{host.name}\nSeverity: #{stringSeverity(trigger.priority)}\nDescription: #{trigger.description} (#{time}).\nTriggerid: #{trigger.triggerid}\nEventid: #{event.eventid}"
+          "#{maintenance}\nHostname: #{host.name}\nSeverity: #{stringSeverity(trigger.priority)}\nDescription: #{trigger.description} (#{time}).\nTriggerid: #{trigger.triggerid}\nEventid: #{event.eventid}\n"
         ).join("\n")
       msg.send lines.join("\n").replace(/\n+/g,"\n")
 
